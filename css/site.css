@@ -1262,8 +1262,10 @@ body.menu-open { overflow: hidden; }
 
 @media (max-width: 900px) {
   .slider.full + .matterhorn { padding-top: 30px; }
-  .topbar { grid-template-columns: 1fr; justify-items: center; padding-bottom: 8px; }
-  .topbar .btn-line.right, .topbar .btn-line { justify-self: center; }
+  .topbar { grid-template-columns: auto auto; justify-content: center; gap: 10px 12px; padding-bottom: 10px; }
+  .topbar .langs { grid-column: 1 / -1; justify-self: center; }
+  .topbar .btn-line { justify-self: end; }
+  .topbar .btn-line.right { justify-self: start; }
   .hotels { grid-template-columns: 1fr; background: var(--cream); }
   .hotel:nth-child(2) { background: var(--sand); }
   .service-grid, .locate, .footer-grid, .included { grid-template-columns: 1fr; }
@@ -1416,4 +1418,9 @@ body.consent-open #canary-chat-widget, body.consent-open .to-top { display: none
   .consent.show-prefs .consent-cats { display: block; }
   .consent.show-prefs .consent-buttons .consent-view { display: none; }
   .consent.show-prefs .consent-buttons .consent-save { display: block; }
+}
+
+@media (max-width: 420px) {
+  .topbar { gap: 10px 8px; padding-left: 10px; padding-right: 10px; }
+  .topbar .btn-line { padding: 6px 10px; font-size: 12px; letter-spacing: 0.5px; }
 }
