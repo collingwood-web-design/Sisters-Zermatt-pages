@@ -157,7 +157,9 @@
 
   var stamp = document.querySelector("[data-today]");
   if (stamp) {
-    stamp.textContent = new Date().toLocaleDateString("en-US", {
+    var pageLang = (document.documentElement.lang || "en").slice(0, 2);
+    var dateLocale = { de: "de-CH", fr: "fr-CH" }[pageLang] || "en-US";
+    stamp.textContent = new Date().toLocaleDateString(dateLocale, {
       month: "long",
       day: "numeric",
       year: "numeric"
