@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Seite nicht gefunden - The Sisters Hotels in Zermatt</title>
+  <meta name="robots" content="noindex">
+  <base href="/">
+  <script>
+    (function () {
+      var parts = location.pathname.split("/");
+      if (/\.github\.io$/i.test(location.hostname) && parts[1]) {
+        document.querySelector("base").href = "/" + parts[1] + "/";
+      }
+    })();
+  </script>
+  <link rel="icon" href="https://media.cwd-cdn.com/Sisters-Zermatt/images/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/site.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="topbar">
+      <nav class="langs" aria-label="Languages">
+        <button type="button" data-lang="de" aria-pressed="true">DE</button>
+        <span aria-hidden="true">|</span>
+        <button type="button" data-lang="en" aria-pressed="false">EN</button>
+        <span aria-hidden="true">|</span>
+        <button type="button" data-lang="fr" aria-pressed="false">FR</button>
+      </nav>
+      <a class="btn-line" id="nf-book" href="https://www.simplebooking.it/portal/247?lang=DE&amp;cur=CHF" target="_blank" rel="noopener">Zimmer buchen</a>
+      <a class="btn-line right" id="nf-voucher" href="https://shop.e-guma.ch/hotel-daniela-zermatt/de/gutscheine/10103/the-sisters-zermatt-wertgutschein" target="_blank" rel="noopener">Wertgutschein</a>
+    </div>
+    <div class="brandbar">
+      <a class="nf-home" href="de/">
+        <img src="https://media.cwd-cdn.com/Sisters-Zermatt/images/logo.png" alt="The Sisters">
+      </a>
+    </div>
+  </header>
+
+  <main class="notfound">
+    <p class="notfound-code">404</p>
+    <h1 id="nf-title">Seite nicht gefunden</h1>
+    <p id="nf-text">Die Seite, die du suchst, gibt es leider nicht (mehr).</p>
+    <a class="btn-solid nf-home" id="nf-button" href="de/">Zur Startseite</a>
+    <div class="notfound-links">
+      <a id="nf-chesa" href="de/hotel-chesa-valese">Hotel Chesa Valese</a>
+      <a id="nf-daniela" href="de/hotel-daniela">Hotel Daniela</a>
+    </div>
+  </main>
+
+  <img class="matterhorn" src="https://media.cwd-cdn.com/Sisters-Zermatt/images/matterhorn.png" alt="">
+
+  <script>
+    (function () {
+      var T = {
+        de: {
+          doc: "Seite nicht gefunden - The Sisters Hotels in Zermatt",
+          title: "Seite nicht gefunden",
+          text: "Die Seite, die du suchst, gibt es leider nicht (mehr).",
+          button: "Zur Startseite",
+          book: ["Zimmer buchen", "https://www.simplebooking.it/portal/247?lang=DE&cur=CHF"],
+          voucher: ["Wertgutschein", "https://shop.e-guma.ch/hotel-daniela-zermatt/de/gutscheine/10103/the-sisters-zermatt-wertgutschein"]
+        },
+        en: {
+          doc: "Page not found - The Sisters Hotels in Zermatt",
+          title: "Page not found",
+          text: "Sorry, the page you’re looking for doesn’t exist or has moved.",
+          button: "Back to the home page",
+          book: ["Book a room", "https://www.simplebooking.it/portal/247?lang=EN&cur=GBP"],
+          voucher: ["Value voucher", "https://shop.e-guma.ch/hotel-daniela-zermatt/en/gift-vouchers/10103/the-sisters-zermatt-nbspvalue-voucher"]
+        },
+        fr: {
+          doc: "Page introuvable - The Sisters Hotels in Zermatt",
+          title: "Page introuvable",
+          text: "Désolées, la page que tu cherches n’existe pas ou a été déplacée.",
+          button: "Retour à l’accueil",
+          book: ["Réserver", "https://www.simplebooking.it/portal/247?lang=FR&cur=EUR"],
+          voucher: ["Bon cadeau valeur", "https://shop.e-guma.ch/hotel-daniela-zermatt/fr/bons-cadeaux/10103/the-sisters-zermatt-nbspbon-cadeau-valeur"]
+        }
+      };
+
+      function $(id) { return document.getElementById(id); }
+
+      function setLang(lang) {
+        var t = T[lang];
+        document.documentElement.lang = lang;
+        document.title = t.doc;
+        $("nf-title").textContent = t.title;
+        $("nf-text").textContent = t.text;
+        $("nf-button").textContent = t.button;
+        $("nf-book").textContent = t.book[0];
+        $("nf-book").href = t.book[1];
+        $("nf-voucher").textContent = t.voucher[0];
+        $("nf-voucher").href = t.voucher[1];
+        document.querySelectorAll(".nf-home").forEach(function (a) { a.setAttribute("href", lang + "/"); });
+        $("nf-chesa").setAttribute("href", lang + "/hotel-chesa-valese");
+        $("nf-daniela").setAttribute("href", lang + "/hotel-daniela");
+        document.querySelectorAll(".langs button").forEach(function (b) {
+          b.setAttribute("aria-pressed", b.dataset.lang === lang ? "true" : "false");
+        });
+      }
+
+      var base = new URL(document.baseURI).pathname;
+      var rest = location.pathname.indexOf(base) === 0 ? location.pathname.slice(base.length) : location.pathname;
+      var first = rest.split("/")[0].toLowerCase();
+      setLang(T[first] ? first : "de");
+
+      document.querySelectorAll(".langs button").forEach(function (b) {
+        b.addEventListener("click", function () { setLang(b.dataset.lang); });
+      });
+    })();
+  </script>
+</body>
+</html>
