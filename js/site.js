@@ -181,4 +181,192 @@
     fjs.parentNode.insertBefore(js, fjs);
   })(window, document, "script", "CanaryChatWidget", "https://static.cdn.canarytechnologies.com/dist/web-chat-loader.js");
   window.CanaryChatWidget("init", { slug: "hotel-chesa-valese26", chat_button_bottom_offset: 20 }, "https://eu.canarytechnologies.com");
+
+  var CONSENT_KEY = "sz-consent";
+  var CONSENT_DAYS = 365;
+  var GA_ID = "G-EFTJQ6CZK9";
+  var lang = (document.documentElement.lang || "en").slice(0, 2);
+
+  var consentMessages = {
+    de: "Mit „Accept“ oder durch Weitersurfen stimmst du Cookies (auch von Drittanbietern) zu – für bessere Website-Funktionen, Analyse und Marketing.",
+    en: "By continuing to browse or by clicking “Accept,” you agree to the storage of first- and third-party cookies on your device to improve website navigation, analyze website usage, and support our marketing efforts.",
+    fr: "En continuant à naviguer ou en cliquant sur « Accept », vous autorisez des cookies (y compris de tiers) pour améliorer le site, analyser son utilisation et soutenir nos actions marketing."
+  };
+
+  var consentCategories = [
+    { id: "functional", name: "Functional", desc: "The technical storage or access is strictly necessary for the legitimate purpose of enabling the use of a specific service explicitly requested by the subscriber or user, or for the sole purpose of carrying out the transmission of a communication over an electronic communications network." },
+    { id: "preferences", name: "Preferences", desc: "The technical storage or access is necessary for the legitimate purpose of storing preferences that are not requested by the subscriber or user." },
+    { id: "statistics", name: "Statistics", desc: "The technical storage or access that is used exclusively for anonymous statistical purposes. Without a subpoena, voluntary compliance on the part of your Internet Service Provider, or additional records from a third party, information stored or retrieved for this purpose alone cannot usually be used to identify you." },
+    { id: "marketing", name: "Marketing", desc: "The technical storage or access is required to create user profiles to send advertising, or to track the user on a website or across several websites for similar marketing purposes." }
+  ];
+
+  var settingsLabel = { de: "Cookie-Einstellungen", en: "Cookie settings", fr: "Paramètres des cookies" };
+
+  function readConsent() {
+    try {
+      var saved = JSON.parse(localStorage.getItem(CONSENT_KEY));
+      if (saved && Date.now() - saved.date < CONSENT_DAYS * 864e5) return saved;
+    } catch (e) {}
+    return null;
+  }
+
+  var analyticsLoaded = false;
+
+  function loadAnalytics() {
+    if (!/(^|\.)sisterszermatt\.ch$/.test(location.hostname)) return;
+    window["ga-disable-" + GA_ID] = false;
+    if (analyticsLoaded) return;
+    analyticsLoaded = true;
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = window.gtag || function () { window.dataLayer.push(arguments); };
+    window.gtag("js", new Date());
+    window.gtag("config", GA_ID, { anonymize_ip: true });
+    var ga = document.createElement("script");
+    ga.async = true;
+    ga.src = "https://www.googletagmanager.com/gtag/js?id=" + GA_ID;
+    document.head.appendChild(ga);
+  }
+
+  function applyConsent(consent) {
+    if (consent.statistics) loadAnalytics();
+    else window["ga-disable-" + GA_ID] = true;
+  }
+
+  var banner = document.createElement("div");
+  banner.className = "consent";
+  banner.setAttribute("role", "dialog");
+  banner.setAttribute("aria-labelledby", "consent-title");
+  banner.hidden = true;
+
+  var head = document.createElement("div");
+  head.className = "consent-head";
+  head.innerHTML = '<p class="consent-title" id="consent-title">Cookie-Einstellungen verwalten – Manage Your Consent – Gérer vos préférences</p>' +
+    '<button type="button" class="consent-close" aria-label="Close">&times;</button>';
+  banner.appendChild(head);
+
+  var body = document.createElement("div");
+  body.className = "consent-body";
+
+  var message = document.createElement("div");
+  message.className = "consent-message";
+  ["de", "en", "fr"].forEach(function (code) {
+    var p = document.createElement("p");
+    p.lang = code;
+    p.textContent = consentMessages[code];
+    if (code === lang) p.className = "is-page-lang";
+    message.appendChild(p);
+  });
+  body.appendChild(message);
+
+  var cats = document.createElement("div");
+  cats.className = "consent-cats";
+  var switches = {};
+  consentCategories.forEach(function (cat) {
+    var row = document.createElement("div");
+    row.className = "consent-cat";
+    var rowHead = document.createElement("div");
+    rowHead.className = "consent-cat-head";
+    var name = document.createElement("span");
+    name.className = "consent-cat-name";
+    name.id = "consent-cat-" + cat.id;
+    name.textContent = cat.name;
+    rowHead.appendChild(name);
+    if (cat.id === "functional") {
+      var always = document.createElement("span");
+      always.className = "consent-always";
+      always.textContent = "Always active";
+      rowHead.appendChild(always);
+    } else {
+      var sw = document.createElement("label");
+      sw.className = "consent-switch";
+      var input = document.createElement("input");
+      input.type = "checkbox";
+      input.setAttribute("aria-labelledby", name.id);
+      sw.appendChild(input);
+      sw.appendChild(document.createElement("span"));
+      rowHead.appendChild(sw);
+      switches[cat.id] = input;
+    }
+    var more = document.createElement("button");
+    more.type = "button";
+    more.className = "consent-more";
+    more.setAttribute("aria-expanded", "false");
+    more.setAttribute("aria-label", cat.name + " – info");
+    rowHead.appendChild(more);
+    var desc = document.createElement("p");
+    desc.className = "consent-desc";
+    desc.textContent = cat.desc;
+    desc.hidden = true;
+    more.addEventListener("click", function () {
+      desc.hidden = !desc.hidden;
+      more.setAttribute("aria-expanded", desc.hidden ? "false" : "true");
+    });
+    row.appendChild(rowHead);
+    row.appendChild(desc);
+    cats.appendChild(row);
+  });
+  body.appendChild(cats);
+
+  var buttons = document.createElement("div");
+  buttons.className = "consent-buttons";
+  buttons.innerHTML = '<button type="button" class="consent-accept" data-consent="accept">Accept</button>' +
+    '<button type="button" data-consent="deny">Deny</button>' +
+    '<button type="button" class="consent-view" data-consent="view">View preferences</button>' +
+    '<button type="button" class="consent-save" data-consent="save">Save preferences</button>';
+  body.appendChild(buttons);
+  banner.appendChild(body);
+
+  var policyLinks = document.querySelectorAll('nav[aria-label="Policies"] a');
+  var links = document.createElement("p");
+  links.className = "consent-links";
+  Array.prototype.forEach.call(policyLinks, function (a) {
+    if (/privacy|imprint|credits/.test(a.getAttribute("href"))) links.appendChild(a.cloneNode(true));
+  });
+  if (links.children.length) banner.appendChild(links);
+
+  document.body.appendChild(banner);
+
+  function openConsent() {
+    var saved = readConsent() || {};
+    Object.keys(switches).forEach(function (id) { switches[id].checked = !!saved[id]; });
+    banner.classList.remove("show-prefs");
+    banner.hidden = false;
+    document.body.classList.add("consent-open");
+  }
+
+  function saveConsent(choice) {
+    var consent = { functional: true, date: Date.now() };
+    Object.keys(switches).forEach(function (id) {
+      consent[id] = choice === "accept" ? true : choice === "deny" ? false : switches[id].checked;
+    });
+    try { localStorage.setItem(CONSENT_KEY, JSON.stringify(consent)); } catch (e) {}
+    applyConsent(consent);
+    banner.hidden = true;
+    document.body.classList.remove("consent-open");
+  }
+
+  buttons.addEventListener("click", function (event) {
+    var btn = event.target.closest("[data-consent]");
+    if (!btn) return;
+    if (btn.dataset.consent === "view") banner.classList.add("show-prefs");
+    else saveConsent(btn.dataset.consent);
+  });
+  head.querySelector(".consent-close").addEventListener("click", function () { saveConsent("deny"); });
+
+  var policies = document.querySelector('nav[aria-label="Policies"]');
+  if (policies) {
+    var settings = document.createElement("a");
+    settings.href = "#";
+    settings.setAttribute("role", "button");
+    settings.textContent = settingsLabel[lang] || settingsLabel.en;
+    settings.addEventListener("click", function (event) {
+      event.preventDefault();
+      openConsent();
+    });
+    policies.appendChild(settings);
+  }
+
+  var existing = readConsent();
+  if (existing) applyConsent(existing);
+  else openConsent();
 })();
