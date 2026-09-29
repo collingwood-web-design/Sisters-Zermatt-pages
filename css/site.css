@@ -1157,6 +1157,44 @@ h1 {
 
 .legal-page a { color: var(--ink); }
 
+.faq-page { max-width: 860px; }
+.faq-page .faq-intro { margin-bottom: 26px; }
+.faq-group { margin-top: 34px; }
+.faq-group > h2 {
+  margin: 0 0 6px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--gold);
+  font-size: 18px;
+}
+.faq-item { border-bottom: 1px solid var(--sand); }
+.faq-item summary {
+  position: relative;
+  padding: 14px 40px 14px 0;
+  list-style: none;
+  cursor: pointer;
+}
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary::after {
+  content: "+";
+  position: absolute;
+  top: 50%;
+  right: 6px;
+  transform: translateY(-50%);
+  color: var(--gold);
+  font-size: 24px;
+  line-height: 1;
+}
+.faq-item[open] summary::after { content: "\2013"; }
+.faq-item summary:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+.legal-page .faq-item summary h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.45;
+}
+.faq-answer { padding: 0 0 8px; }
+.faq-page .faq-more { margin-top: 34px; }
+
 .site-footer .footer-links a[aria-current="page"] { text-decoration: underline; }
 
 .to-top {

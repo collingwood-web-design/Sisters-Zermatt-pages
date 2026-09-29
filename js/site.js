@@ -1,4 +1,10 @@
 (function () {
+  if (/\.github\.io$/i.test(location.hostname)) {
+    var robots = document.querySelector('meta[name="robots"]') || document.head.appendChild(document.createElement("meta"));
+    robots.name = "robots";
+    robots.content = "noindex, nofollow";
+  }
+
   var toggle = document.querySelector(".menu-toggle");
   var overlay = document.querySelector(".nav-overlay");
   var closeBtn = document.querySelector(".nav-close");

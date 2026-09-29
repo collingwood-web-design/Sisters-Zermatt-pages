@@ -1,21 +1,38 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>THE SISTERS - The Sisters Hotels in Zermatt</title>
-  <link rel="canonical" href="https://sisterszermatt.ch/de/">
+  <title>The Sisters Zermatt – Hotel Chesa Valese &amp; Hotel Daniela</title>
+  <meta name="description" content="Hotel Chesa Valese &amp; Hotel Daniela: two family-run 4-star hotels in the heart of Zermatt – Matterhorn-view rooms, spas, breakfast buffet and free e-car shuttle.">
   <link rel="alternate" hreflang="de" href="https://sisterszermatt.ch/de/">
   <link rel="alternate" hreflang="en" href="https://sisterszermatt.ch/en/">
   <link rel="alternate" hreflang="fr" href="https://sisterszermatt.ch/fr/">
-  <link rel="alternate" hreflang="x-default" href="https://sisterszermatt.ch/de/">
+  <link rel="alternate" hreflang="x-default" href="https://sisterszermatt.ch/">
   <link rel="icon" href="https://media.cwd-cdn.com/Sisters-Zermatt/images/favicon-32.png" sizes="32x32" type="image/png">
   <link rel="icon" href="https://media.cwd-cdn.com/Sisters-Zermatt/images/favicon.png" sizes="192x192" type="image/png">
   <link rel="apple-touch-icon" href="https://media.cwd-cdn.com/Sisters-Zermatt/images/apple-touch-icon.png">
-  <meta http-equiv="refresh" content="0; url=de/">
-  <script>location.replace("de/" + location.search + location.hash);</script>
+  <link rel="manifest" href="site.webmanifest">
+  <meta name="theme-color" content="#4e4c4f">
+  <script>
+    (function () {
+      var list = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || ""];
+      var target = "en/";
+      for (var i = 0; i < list.length; i++) {
+        var code = String(list[i]).toLowerCase().slice(0, 2);
+        if (code === "de" || code === "fr" || code === "en") { target = code + "/"; break; }
+      }
+      location.replace(target + location.search + location.hash);
+    })();
+  </script>
+  <style>
+    body { font-family: "Open Sans", Arial, sans-serif; text-align: center; padding: 60px 20px; color: #4e4c4f; }
+    a { color: #4e4c4f; margin: 0 10px; font-weight: 600; }
+  </style>
 </head>
 <body>
-  <p><a href="de/">The Sisters Zermatt</a></p>
+  <p><img src="https://media.cwd-cdn.com/Sisters-Zermatt/images/logo.webp" width="300" height="81" alt="The Sisters Zermatt"></p>
+  <h1>Hotel Chesa Valese &amp; Hotel Daniela, Zermatt</h1>
+  <p><a href="de/" hreflang="de" lang="de">Deutsch</a> <a href="en/" hreflang="en" lang="en">English</a> <a href="fr/" hreflang="fr" lang="fr">Français</a></p>
 </body>
 </html>

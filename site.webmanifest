@@ -1,0 +1,29 @@
+{
+  "name": "The Sisters Zermatt – Hotel Chesa Valese & Hotel Daniela",
+  "short_name": "The Sisters",
+  "description": "Hotel Chesa Valese & Hotel Daniela: two family-run 4-star hotels in the heart of Zermatt – Matterhorn-view rooms, spas, breakfast buffet and free e-car shuttle.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "minimal-ui",
+  "background_color": "#ffffff",
+  "theme_color": "#4e4c4f",
+  "lang": "de",
+  "icons": [
+    {
+      "src": "https://media.cwd-cdn.com/Sisters-Zermatt/images/favicon-32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "https://media.cwd-cdn.com/Sisters-Zermatt/images/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    },
+    {
+      "src": "https://media.cwd-cdn.com/Sisters-Zermatt/images/favicon.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
