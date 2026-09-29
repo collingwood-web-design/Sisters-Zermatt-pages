@@ -194,6 +194,9 @@ button, input { font-family: inherit; }
 
 .nav-overlay li.nav-sub a { font-size: 13px; color: #5c5a5d; }
 
+.nav-overlay li a[href*="hotelcareer.com"],
+.nav-overlay li a[href*="e-guma.ch"] { font-size: 13px; }
+
 .nav-overlay li.nav-sub a:hover { color: #8a735c; }
 
 .nav-overlay a[aria-current="page"] { text-decoration: underline; text-underline-offset: 4px; }
