@@ -1269,6 +1269,8 @@ body.menu-open { overflow: hidden; }
   .hotels { grid-template-columns: 1fr; background: var(--cream); }
   .hotel:nth-child(2) { background: var(--sand); }
   .service-grid, .locate, .footer-grid, .included { grid-template-columns: 1fr; }
+  .footer-reviews { text-align: left; }
+  .footer-reviews img { margin-left: 0; margin-right: 0; }
   .carousel.wide .carousel-track a { flex-basis: 82%; }
   .included { gap: 10px; }
   .included h2 { margin-bottom: 20px; }
